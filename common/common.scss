@@ -1,0 +1,13 @@
+// 전체 배경색 (레딧 느낌의 연회색)
+body {
+  background-color: #DAE0E6;
+}
+
+// 게시글 목록 아이템을 흰색 카드 스타일로
+.topic-list-item {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
