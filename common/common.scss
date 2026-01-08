@@ -32,23 +32,15 @@
   }
 }
 
-// 푸터 스타일 (Discourse Meta 스타일 복구)
+// 푸터 폰트 스타일 (Discourse Meta 스타일)
 .powered-by-discourse {
-  font-size: 0.85rem;
-  color: #aaadb3 !important;
-  text-decoration: none;
+  font-size: 0.8rem; // 더 작게 조정
+  color: #919191 !important; // 더 연한 회색으로 조정
   
-  .powered-by-discourse__logo {
-    svg {
-      width: 16px;
-      height: 16px;
-      fill: #aaadb3 !important;
-      margin-right: 6px;
-    }
-  }
-
-  &:hover {
-    color: #666 !important;
-    svg { fill: #666 !important; }
+  .powered-by-discourse__logo svg {
+    width: 14px !important;
+    height: 14px !important;
+    fill: #919191 !important;
+    margin-right: 4px;
   }
 }
