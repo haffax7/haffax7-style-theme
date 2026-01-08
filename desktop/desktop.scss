@@ -1,0 +1,9 @@
+@media screen and (min-width: 1100px) {
+  #main-outlet-wrapper {
+    display: grid;
+    // 좌측(네비게이션), 중앙(글 목록), 우측(사이드바)
+    grid-template-columns: 240px 1fr 310px;
+    gap: 20px;
+    align-items: start;
+  }
+}
