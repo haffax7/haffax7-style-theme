@@ -17,13 +17,12 @@ $theme-max-width: 1150px;
     }
   }
 
-  // 3. 본문 3단 그리드
+  // 3. 본문 3단 그리드 시스템
   #main-outlet-wrapper {
     display: grid !important;
+    // 좌(220px) 중(600px) 우(300px)
     grid-template-columns: 220px 600px 300px !important;
-    grid-template-areas: 
-      "sidebar main-list right-side"
-      "footer footer footer" !important; // 푸터 자리를 아래에 별도로 마련
+    grid-template-areas: "sidebar main-list right-side" !important;
     gap: 15px !important;
 
     width: $theme-max-width !important;
@@ -31,6 +30,7 @@ $theme-max-width: 1150px;
     margin: 0 auto !important;
     padding: 20px 0 !important;
     align-items: start !important;
+    position: relative;
   }
 
   // 4. 각 영역 할당
@@ -52,16 +52,24 @@ $theme-max-width: 1150px;
     margin: 0 !important;
   }
 
-  // 5. 문제의 푸터 (Powered by Discourse) 해결
-  .powered-by-discourse {
-    grid-area: footer !important; // 그리드 하단 전체 차지
+  // 5. 푸터 교정 (Powered by Discourse)
+  // 그리드 바구니(#main-outlet-wrapper) 안에서 하단 전체 너비를 사용하도록 설정
+  footer.container.wrap {
+    grid-column: 1 / span 3 !important; // 1번 칸부터 3번 칸까지 전체 차지
     width: 100% !important;
-    text-align: center !important;
-    padding: 40px 0 !important;
-    margin-top: 50px !important;
+    margin-top: 60px !important;
+    padding: 20px 0 !important;
+    border-top: 1px solid #e9e9e9;
     display: flex !important;
     justify-content: center !important;
-    border-top: 1px solid #eee; // 구분선 추가
+    align-items: center !important;
+  }
+
+  .powered-by-discourse {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+    margin: 20px 0 !important;
   }
 
   .haffax7-right-sidebar-target {
