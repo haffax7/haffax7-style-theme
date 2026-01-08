@@ -1,51 +1,47 @@
 @media screen and (min-width: 1100px) {
-  // 1. 전체 레이아웃 그리드 설정
+  // 1. 전체 그리드 레이아웃 선언
   #main-outlet-wrapper {
     display: grid !important;
     // 좌측(240px) | 중앙(1fr) | 우측(310px)
     grid-template-columns: 240px 1fr 310px !important;
-    grid-template-areas: "sidebar main-content right-widgets" !important;
-    gap: 30px !important;
+    grid-template-areas: "sidebar main-list right-side" !important;
+    gap: 25px !important;
     max-width: 1500px !important;
     margin: 0 auto !important;
     align-items: start !important;
-    position: relative; // 절대 위치 기준점
   }
 
   // 2. 좌측 메뉴 (기본 사이드바)
   .sidebar-wrapper {
     grid-area: sidebar !important;
     position: sticky !important;
-    top: 70px !important;
+    top: 75px !important;
   }
 
   // 3. 중앙 글 목록
   #main-outlet {
-    grid-area: main-content !important;
+    grid-area: main-list !important;
     width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
-    min-width: 0;
   }
 
-  // 4. 우측 사이드바 (RECENT COMMENTS 위치 교정)
-  // .before-main-outlet-connector가 목록 안에 위치하더라도 그리드 우측으로 강제 이동
+  // 4. 우측 위젯 영역 (가장 중요)
+  // 커넥터 자체(.before-main-outlet-connector)를 그리드 우측 칸으로 보냅니다.
   .before-main-outlet-connector {
-    grid-area: right-widgets !important;
+    grid-area: right-side !important;
     display: block !important;
-    width: 310px !important;
     margin: 0 !important;
+    width: 310px !important;
   }
 
-  // 위젯 고정 효과
-  .haffax7-custom-sidebar-container {
+  .haffax7-right-sidebar-target {
     position: sticky !important;
-    top: 70px !important;
-    z-index: 100;
+    top: 75px !important;
   }
 }
 
-// 배경색 흰색 유지
+// 배경색 제거
 body {
   background-color: #ffffff !important;
 }
