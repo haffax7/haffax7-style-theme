@@ -4,7 +4,6 @@ $theme-max-width: 1150px;
 // --- 데스크탑 전용 레이아웃 (1100px 이상) ---
 @media screen and (min-width: 1100px) {
   
-  // 2. 헤더 중앙 정렬
   .d-header {
     display: flex !important;
     justify-content: center !important;
@@ -20,11 +19,9 @@ $theme-max-width: 1150px;
       display: flex !important;
       width: 100% !important;
       justify-content: space-between !important;
-      align-items: center !important;
     }
   }
 
-  // 3. 본문 3단 그리드 시스템
   #main-outlet-wrapper {
     display: grid !important;
     grid-template-columns: 220px 600px 300px !important;
@@ -39,22 +36,16 @@ $theme-max-width: 1150px;
     align-items: start !important;
   }
 
-  // 4. 좌측 사이드바 고정 및 내부 스크롤
   .sidebar-wrapper {
     grid-area: sidebar !important;
     position: sticky !important;
     top: 80px !important;
     height: calc(100vh - 100px) !important;
     overflow-y: hidden !important;
-    &:hover {
-      overflow-y: auto !important;
-    }
-    .sidebar-sections {
-      padding-top: 0 !important;
-    }
+    &:hover { overflow-y: auto !important; }
+    .sidebar-sections { padding-top: 0 !important; }
   }
 
-  // 5. 중앙 및 우측 섹션 할당
   #main-outlet {
     grid-area: main-list !important;
     width: 600px !important;
@@ -71,37 +62,38 @@ $theme-max-width: 1150px;
   .haffax7-right-sidebar-target {
     position: sticky !important;
     top: 80px !important;
+    display: block !important; // 데스크탑에선 표시
   }
 
-  // 6. 푸터 정렬 (본문 왼쪽 기준)
   .powered-by-discourse {
     grid-area: custom-footer !important;
     display: flex !important;
     justify-content: flex-start !important;
-    padding: 0 !important;
     margin: 40px 0 20px 0 !important;
   }
 }
 
-// --- 모바일/태블릿용 예외 처리 (1100px 미만) ---
+// --- 모바일 및 태블릿 대응 (1100px 미만) ---
 @media screen and (max-width: 1099px) {
-  // 모바일에서는 우리가 추가한 우측 사이드바 위젯을 숨깁니다.
-  .haffax7-right-sidebar-target {
+  // 모바일에서 노출되는 우측 사이드바 찌꺼기 완벽 제거
+  .haffax7-right-sidebar-target,
+  .custom-right-sidebar,
+  .recent-comments-widget {
     display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
   }
-  
-  // Discourse 기본 모바일 레이아웃 유지
+
   #main-outlet-wrapper {
     display: block !important;
     width: 100% !important;
-    padding: 10px !important;
   }
-  
+
   #main-outlet {
     width: 100% !important;
   }
 }
 
-body {
-  background-color: #ffffff !important;
-}
+body { background-color: #ffffff !important; }
