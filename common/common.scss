@@ -32,7 +32,7 @@
   }
 }
 
-// 푸터 스타일: 배경색 및 패딩 완전 제거 (Meta 스타일)
+// 푸터 스타일 (공통)
 .powered-by-discourse {
   font-size: 0.8rem;
   color: #919191 !important;
@@ -50,5 +50,13 @@
     width: 14px !important;
     height: 14px !important;
     fill: #919191 !important;
+  }
+}
+
+// 모바일 푸터 중앙 정렬 (선택 사항)
+@media screen and (max-width: 1099px) {
+  .powered-by-discourse {
+    justify-content: center !important;
+    margin-top: 30px !important;
   }
 }
