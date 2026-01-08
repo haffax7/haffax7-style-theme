@@ -1,16 +1,15 @@
-// 우측 사이드바 위젯 내부 디자인
 .recent-comments-widget {
   background: #ffffff;
   border: 1px solid #e1e4e8;
   border-radius: 12px;
   padding: 16px;
-  margin-top: 5px; // 상단 헤더와의 간격
+  margin-top: 10px;
 
   .widget-title {
     font-size: 0.75rem;
     font-weight: 800;
-    color: #444;
-    margin-bottom: 12px;
+    color: #555;
+    margin-bottom: 15px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     border-bottom: 2px solid #f0f2f5;
@@ -21,22 +20,12 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    
     li {
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       color: #333;
       padding: 10px 0;
       border-bottom: 1px solid #f0f2f5;
-      line-height: 1.4;
-
-      &:last-child {
-        border-bottom: none;
-      }
+      &:last-child { border-bottom: none; }
     }
   }
-}
-
-// 중앙 목록 여백 제거 (사이드바와 높이 맞춤)
-.list-controls {
-  margin-top: 5px;
 }
