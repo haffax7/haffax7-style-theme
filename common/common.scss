@@ -1,18 +1,19 @@
+// 우측 사이드바 디자인
 .recent-comments-widget {
   background: #ffffff;
-  border: 1px solid #e9ebee;
+  border: 1px solid #e1e4e8;
   border-radius: 12px;
   padding: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
-  margin-top: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-top: 5px;
 
   .widget-title {
-    font-size: 0.78rem;
+    font-size: 0.8rem;
     font-weight: 800;
     color: #444;
-    margin-bottom: 18px;
+    margin-bottom: 15px;
     text-transform: uppercase;
-    letter-spacing: 0.7px;
+    letter-spacing: 0.8px;
     border-bottom: 1px solid #f0f2f5;
     padding-bottom: 12px;
   }
@@ -29,14 +30,12 @@
       border-bottom: 1px solid #f5f7f9;
       line-height: 1.5;
 
-      &:last-child {
-        border-bottom: none;
-      }
+      &:last-child { border-bottom: none; }
     }
   }
 }
 
-// 리스트 컨트롤(필터바) 정렬 보정
-.list-controls .nav-pills {
-  margin-bottom: 15px;
+// 중앙 리스트 컨트롤 여백 조정
+.list-controls {
+  margin-bottom: 20px;
 }
