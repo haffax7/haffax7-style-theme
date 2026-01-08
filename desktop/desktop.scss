@@ -1,45 +1,48 @@
 @media screen and (min-width: 1100px) {
-  // 1. 최상위 헤더 아래 커넥터 위치 조정
-  .before-main-outlet-connector.haffax7-sidebar {
-    display: none; // 기본 위치에서는 숨기고 그리드 안에서 제어
-  }
-
-  // 2. 전체 페이지를 감싸는 컨테이너 레이아웃
+  // 1. 전체 페이지 컨테이너 설정
   #main-outlet-wrapper {
     display: grid !important;
-    // [좌측 메뉴 220px] [중앙 리스트 1fr] [우측 사이드바 300px]
-    grid-template-columns: 220px 1fr 300px !important;
-    grid-template-areas: "sidebar main custom-right" !important;
-    gap: 20px;
-    max-width: 1450px;
-    margin: 0 auto;
-    align-items: start;
+    // 좌측(240px) | 중앙(1fr) | 우측(310px)
+    grid-template-columns: 240px 1fr 310px !important;
+    grid-template-areas: "left-menu main-list right-side" !important;
+    gap: 25px !important;
+    max-width: 1480px !important;
+    margin: 0 auto !important;
+    align-items: start !important;
+    padding-top: 20px;
   }
 
-  // 좌측 사이드바 (기본)
+  // 2. 좌측 내비게이션 (HTML의 .sidebar-wrapper 부근)
+  // Discourse 3.0 사이드바 구조 대응
   .sidebar-wrapper {
-    grid-area: sidebar;
-    position: sticky;
-    top: 70px;
+    grid-area: left-menu !important;
+    position: sticky !important;
+    top: 75px !important;
+    height: calc(100vh - 80px) !important;
   }
 
-  // 중앙 콘텐츠 (글 목록)
+  // 3. 중앙 글 목록 영역
   #main-outlet {
-    grid-area: main;
+    grid-area: main-list !important;
     width: 100% !important;
-    min-width: 0; // 그리드 깨짐 방지
+    min-width: 0 !important; // 그리드 깨짐 방지
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
-  // 3. 우측 사이드바 강제 배치
-  // 위 handlebars에서 만든 클래스를 그리드의 우측 영역으로 보냅니다.
-  .haffax7-custom-sidebar-area {
-    grid-area: custom-right;
-    position: sticky;
-    top: 70px;
+  // 4. 우측 사이드바 (우리가 만든 위젯)
+  // 커넥터가 삽입되는 실제 위치인 .before-main-outlet-connector 대응
+  .before-main-outlet-connector.haffax7-sidebar {
+    grid-area: right-side !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: sticky !important;
+    top: 75px !important;
   }
 }
 
-// 배경색 제거
+// 배경색 제거 (흰색 유지)
 body {
   background-color: #ffffff !important;
 }
