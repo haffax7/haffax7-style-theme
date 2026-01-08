@@ -25,13 +25,24 @@
       color: #333;
       padding: 10px 0;
       border-bottom: 1px solid #f5f5f5;
-      line-height: 1.4;
       &:last-child { border-bottom: none; }
     }
   }
 }
 
-// 상단 필터 버튼 여백 조정
-.list-controls {
-  margin-top: 5px;
+// 푸터 링크 스타일
+.powered-by-discourse {
+  font-size: 0.8rem;
+  color: #999;
+  text-decoration: none;
+  svg {
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+    fill: #999;
+  }
+  &:hover {
+    color: #666;
+    svg { fill: #666; }
+  }
 }
