@@ -1,8 +1,8 @@
-// 1. 공통 너비 설정 (Discourse 표준 wrap 너비 활용)
-$theme-max-width: 1110px;
+// 1. 공통 너비 설정 (헤더와 본문이 일치해야 하는 박스 너비)
+$theme-max-width: 1150px; 
 
 @media screen and (min-width: 1100px) {
-  // 2. 헤더 완벽 중앙 정렬 및 내부 양끝 정렬
+  // 2. 헤더 섹션: 중앙 박스 모델 적용
   .d-header {
     display: flex !important;
     justify-content: center !important;
@@ -10,10 +10,10 @@ $theme-max-width: 1110px;
     .wrap {
       width: $theme-max-width !important;
       max-width: $theme-max-width !important;
-      margin: 0 auto !important; // 헤더 박스 중앙 정렬
+      margin: 0 auto !important;
       display: flex !important;
       justify-content: space-between !important;
-      padding: 0 !important; // 여백 불균형 제거
+      padding: 0 !important;
     }
     
     .contents {
@@ -24,17 +24,17 @@ $theme-max-width: 1110px;
     }
   }
 
-  // 3. 본문 3단 섹션 완벽 중앙 정렬
+  // 3. 본문 섹션: 헤더와 동일한 너비로 고정 그리드 배치
   #main-outlet-wrapper {
     display: grid !important;
-    // 너비 배분: [좌측 220px] [중앙 1fr] [우측 300px]
-    grid-template-columns: 220px 1fr 300px !important;
+    // 너비 고정: [좌측 220px] [중앙 600px] [우측 300px] + gap 15px*2 = 약 1150px
+    grid-template-columns: 220px 600px 300px !important;
     grid-template-areas: "sidebar main-list right-side" !important;
-    gap: 30px !important;
+    gap: 15px !important;
 
     width: $theme-max-width !important;
     max-width: $theme-max-width !important;
-    margin: 0 auto !important; // 본문 박스 중앙 정렬
+    margin: 0 auto !important; // 본문 전체 중앙 정렬
     padding: 20px 0 !important;
     align-items: start !important;
   }
@@ -48,9 +48,9 @@ $theme-max-width: 1110px;
 
   #main-outlet {
     grid-area: main-list !important;
-    width: 100% !important;
+    width: 600px !important; // 중앙 리스트 너비 고정
     margin: 0 !important;
-    min-width: 0 !important;
+    padding: 0 !important;
   }
 
   .before-main-outlet-connector {
@@ -63,12 +63,6 @@ $theme-max-width: 1110px;
     position: sticky !important;
     top: 80px !important;
   }
-}
-
-// 기본 레이아웃 방해 요소 제거
-.wrap {
-  margin-left: auto !important;
-  margin-right: auto !important;
 }
 
 body {
