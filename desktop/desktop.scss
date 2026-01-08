@@ -1,18 +1,21 @@
 @media screen and (min-width: 1100px) {
-  // 1. 전체 그리드 레이아웃 중앙 정렬
+  // 1. 전체 컨테이너를 화면 중앙으로 이동
   #main-outlet-wrapper {
     display: grid !important;
-    // 섹션별 너비 고정 및 중앙 정렬
-    // 좌측(220px) | 중앙(최대 800px) | 우측(300px)
-    grid-template-columns: 220px minmax(500px, 800px) 300px !important;
+    // [좌측 220px] [중앙 최대 820px] [우측 300px]
+    grid-template-columns: 220px minmax(500px, 820px) 300px !important;
     grid-template-areas: "sidebar main-list right-side" !important;
     gap: 30px !important;
+
+    // 중앙 정렬 핵심: 좌우 마진 auto + justify-content
+    margin-left: auto !important;
+    margin-right: auto !important;
+    justify-content: center !important;
     
-    // 중앙 정렬 핵심 코드
-    justify-content: center !important; 
-    margin: 0 auto !important;
-    max-width: 100% !important;
-    padding: 20px 10px !important;
+    // Discourse 기본 wrap 클래스의 너비 제한 해제 및 재설정
+    width: fit-content !important;
+    max-width: 1500px !important;
+    padding: 20px 20px !important;
     align-items: start !important;
   }
 
@@ -20,10 +23,11 @@
   .sidebar-wrapper {
     grid-area: sidebar !important;
     position: sticky !important;
-    top: 75px !important;
+    top: 80px !important;
+    // 사이드바가 왼쪽 끝으로 붙지 않게 함
   }
 
-  // 3. 중앙 글 목록 (너무 넓어지지 않게 제한)
+  // 3. 중앙 글 목록
   #main-outlet {
     grid-area: main-list !important;
     width: 100% !important;
@@ -32,7 +36,7 @@
     min-width: 0 !important;
   }
 
-  // 4. 우측 위젯 영역
+  // 4. 우측 위젯 영역 (가장 중요)
   .before-main-outlet-connector {
     grid-area: right-side !important;
     display: block !important;
@@ -42,11 +46,15 @@
 
   .haffax7-right-sidebar-target {
     position: sticky !important;
-    top: 75px !important;
+    top: 80px !important;
   }
 }
 
-// 배경색 제거
+// 배경색 및 기본 wrap 설정 초기화
 body {
   background-color: #ffffff !important;
+}
+
+.wrap {
+  max-width: none !important; // 기본 wrap 너비 제한을 풀어야 중앙 정렬이 작동함
 }
