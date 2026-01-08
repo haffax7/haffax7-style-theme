@@ -1,44 +1,45 @@
 @media screen and (min-width: 1100px) {
-  // 메인 컨테이너를 3단 그리드로 설정
+  // 1. 최상위 헤더 아래 커넥터 위치 조정
+  .before-main-outlet-connector.haffax7-sidebar {
+    display: none; // 기본 위치에서는 숨기고 그리드 안에서 제어
+  }
+
+  // 2. 전체 페이지를 감싸는 컨테이너 레이아웃
   #main-outlet-wrapper {
-    display: grid;
-    // 좌측(220px) : 중앙(자유 비율) : 우측(300px)
-    grid-template-columns: 220px 1fr 300px;
-    grid-template-areas: "left-side main-content right-side";
-    gap: 30px;
-    max-width: 1450px; 
+    display: grid !important;
+    // [좌측 메뉴 220px] [중앙 리스트 1fr] [우측 사이드바 300px]
+    grid-template-columns: 220px 1fr 300px !important;
+    grid-template-areas: "sidebar main custom-right" !important;
+    gap: 20px;
+    max-width: 1450px;
     margin: 0 auto;
     align-items: start;
   }
 
-  // 좌측 영역 (Discourse 기본 사이드바 내비게이션)
+  // 좌측 사이드바 (기본)
   .sidebar-wrapper {
-    grid-area: left-side;
+    grid-area: sidebar;
     position: sticky;
     top: 70px;
   }
 
-  // 중앙 영역 (토픽 리스트)
+  // 중앙 콘텐츠 (글 목록)
   #main-outlet {
-    grid-area: main-content;
-    width: 100%;
-    margin-top: 0;
+    grid-area: main;
+    width: 100% !important;
+    min-width: 0; // 그리드 깨짐 방지
   }
 
-  // 우측 영역 (커스텀 사이드바)
-  .custom-right-sidebar {
-    grid-area: right-side;
+  // 3. 우측 사이드바 강제 배치
+  // 위 handlebars에서 만든 클래스를 그리드의 우측 영역으로 보냅니다.
+  .haffax7-custom-sidebar-area {
+    grid-area: custom-right;
     position: sticky;
     top: 70px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
   }
 }
 
-// 모바일에서는 사이드바 숨기기 또는 아래로 배치
-@media screen and (max-width: 1099px) {
-  .custom-right-sidebar {
-    display: none;
-  }
+// 배경색 제거
+body {
+  background-color: #ffffff !important;
 }
