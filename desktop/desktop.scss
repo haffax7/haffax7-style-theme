@@ -1,46 +1,49 @@
 @media screen and (min-width: 1100px) {
-  // 1. 전체 컨테이너 설정 및 가운데 정렬
-  #main-outlet-wrapper {
-    display: grid !important;
-    // 그룹의 너비 고정: [좌 240px] [중 800px] [우 300px]
-    grid-template-columns: 240px 800px 300px !important;
-    grid-template-areas: "sidebar main-list right-side" !important;
-    gap: 40px !important; // 섹션 간 간격
-
-    // 화면 중앙 정렬 핵심
-    margin-left: auto !important;
-    margin-right: auto !important;
-    justify-content: center !important;
-    
-    width: fit-content !important;
-    max-width: 100% !important;
-    padding: 30px 20px !important;
-    align-items: start !important;
-    float: none !important;
+  // 1. 헤더 정렬 복구 (로고 왼쪽, 아이콘 오른쪽 유지)
+  .d-header .wrap {
+    max-width: 1110px !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    align-items: center !important;
   }
 
-  // 2. 좌측 메뉴 (카테고리 네비게이션)
+  // 2. 하단 3단 레이아웃 중앙 정렬
+  #main-outlet-wrapper {
+    display: grid !important;
+    // 너비 고정: [좌 230px] [중 820px] [우 310px]
+    grid-template-columns: 230px 820px 310px !important;
+    grid-template-areas: "sidebar main-list right-side" !important;
+    gap: 35px !important;
+
+    // 화면 정중앙 배치 핵심
+    justify-content: center !important;
+    margin: 0 auto !important;
+    width: 100% !important;
+    max-width: 1500px !important;
+    padding: 30px 0 !important;
+    align-items: start !important;
+  }
+
+  // 3. 좌측 메뉴
   .sidebar-wrapper {
     grid-area: sidebar !important;
     position: sticky !important;
     top: 80px !important;
-    width: 240px !important;
   }
 
-  // 3. 중앙 글 목록
+  // 4. 중앙 글 목록
   #main-outlet {
     grid-area: main-list !important;
-    width: 800px !important;
+    width: 820px !important;
     margin: 0 !important;
     padding: 0 !important;
   }
 
-  // 4. 우측 사이드바 (RECENT COMMENTS)
+  // 5. 우측 위젯 (RECENT COMMENTS)
   .before-main-outlet-connector {
     grid-area: right-side !important;
     display: block !important;
     margin: 0 !important;
-    width: 300px !important;
   }
 
   .haffax7-right-sidebar-target {
@@ -49,13 +52,9 @@
   }
 }
 
-// 5. 정렬을 방해하는 기존 요소들 초기화
-.wrap {
-  max-width: none !important;
-  width: auto !important;
-  margin: 0 !important;
-}
-
+// 공통 설정
 body {
   background-color: #ffffff !important;
 }
+
+// 다른 wrap 요소들에 영향을 주지 않도록 설정 삭제
