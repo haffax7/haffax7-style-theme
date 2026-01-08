@@ -1,4 +1,4 @@
-// 우측 사이드바 위젯 디자인
+// 우측 사이드바 디자인
 .recent-comments-widget {
   background: #ffffff;
   border: 1px solid #e1e4e8;
@@ -32,16 +32,18 @@
   }
 }
 
-// 푸터 텍스트 및 레이아웃 (여백 제로화)
+// 푸터 스타일: 메타 사이트와 동일하게 여백 및 배경 제거
 .powered-by-discourse {
   font-size: 0.8rem;
   color: #919191 !important;
   
-  // 내부 뱃지 형태 여백 제거
   .powered-by-discourse__content {
-    padding: 0 !important;
-    background: none !important;
-    gap: 4px !important;
+    background: none !important; // 배경색 제거
+    padding: 0 !important;      // 안쪽 여백 제거
+    box-shadow: none !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 5px !important;
   }
 
   .powered-by-discourse__logo svg {
