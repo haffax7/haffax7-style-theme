@@ -2,30 +2,30 @@
   // 메인 컨테이너를 3단 그리드로 설정
   #main-outlet-wrapper {
     display: grid;
-    // 좌측(220px) : 중앙(자유) : 우측(300px)
+    // 좌측(220px) : 중앙(자유 비율) : 우측(300px)
     grid-template-columns: 220px 1fr 300px;
     grid-template-areas: "left-side main-content right-side";
     gap: 30px;
-    max-width: 1450px; // 레딧처럼 넓게 사용
+    max-width: 1450px; 
     margin: 0 auto;
     align-items: start;
   }
 
-  // 좌측 네비게이션/카테고리 영역
+  // 좌측 영역 (Discourse 기본 사이드바 내비게이션)
   .sidebar-wrapper {
     grid-area: left-side;
     position: sticky;
     top: 70px;
   }
 
-  // 중앙 글 목록 영역
+  // 중앙 영역 (토픽 리스트)
   #main-outlet {
     grid-area: main-content;
-    width: 100%; // 너비 고정 해제
+    width: 100%;
     margin-top: 0;
   }
 
-  // 우측 커스텀 영역 (최근 댓글 등)
+  // 우측 영역 (커스텀 사이드바)
   .custom-right-sidebar {
     grid-area: right-side;
     position: sticky;
@@ -36,7 +36,9 @@
   }
 }
 
-// 배경색 제거 및 기본 디자인 정돈
-body {
-  background-color: #ffffff !important;
+// 모바일에서는 사이드바 숨기기 또는 아래로 배치
+@media screen and (max-width: 1099px) {
+  .custom-right-sidebar {
+    display: none;
+  }
 }
