@@ -1,13 +1,18 @@
 @media screen and (min-width: 1100px) {
-  // 1. 전체 그리드 레이아웃 선언
+  // 1. 전체 그리드 레이아웃 중앙 정렬
   #main-outlet-wrapper {
     display: grid !important;
-    // 좌측(240px) | 중앙(1fr) | 우측(310px)
-    grid-template-columns: 240px 1fr 310px !important;
+    // 섹션별 너비 고정 및 중앙 정렬
+    // 좌측(220px) | 중앙(최대 800px) | 우측(300px)
+    grid-template-columns: 220px minmax(500px, 800px) 300px !important;
     grid-template-areas: "sidebar main-list right-side" !important;
-    gap: 25px !important;
-    max-width: 1500px !important;
+    gap: 30px !important;
+    
+    // 중앙 정렬 핵심 코드
+    justify-content: center !important; 
     margin: 0 auto !important;
+    max-width: 100% !important;
+    padding: 20px 10px !important;
     align-items: start !important;
   }
 
@@ -18,21 +23,21 @@
     top: 75px !important;
   }
 
-  // 3. 중앙 글 목록
+  // 3. 중앙 글 목록 (너무 넓어지지 않게 제한)
   #main-outlet {
     grid-area: main-list !important;
     width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
+    min-width: 0 !important;
   }
 
-  // 4. 우측 위젯 영역 (가장 중요)
-  // 커넥터 자체(.before-main-outlet-connector)를 그리드 우측 칸으로 보냅니다.
+  // 4. 우측 위젯 영역
   .before-main-outlet-connector {
     grid-area: right-side !important;
     display: block !important;
     margin: 0 !important;
-    width: 310px !important;
+    width: 300px !important;
   }
 
   .haffax7-right-sidebar-target {
