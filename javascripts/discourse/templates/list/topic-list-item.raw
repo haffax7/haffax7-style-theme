@@ -1,0 +1,38 @@
+<tr data-topic-id="{{topic.id}}" class="topic-list-item {{topic.featured_link_category}} {{if topic.has_excerpt 'has-excerpt'}} {{if topic.unseen 'unseen-topic'}}">
+  
+  {{#if bulkSelectEnabled}}
+    <td class="bulk-select">
+      <input type="checkbox" class="bulk-select">
+    </td>
+  {{/if}}
+
+  {{!-- 아바타와 제목을 하나의 td에 통합 배치 --}}
+  <td class="main-link clearfix" colspan="1">
+    <div class="topic-item-content">
+      <div class="topic-poster-avatar">
+        <a href="{{topic.lastPostUrl}}" data-user-card="{{topic.last_poster_username}}">
+          {{avatar topic.lastPosterUser imageSize="32"}}
+        </a>
+      </div>
+      
+      <div class="topic-details">
+        <div class="topic-title">
+          {{raw "list/topic-list-title" topic=topic}}
+        </div>
+        <div class="topic-meta-data">
+          {{category-link topic.category}}
+          {{discourse-tags topic mode="list"}}
+        </div>
+      </div>
+    </div>
+  </td>
+
+  {{raw "list/posts-count-column" topic=topic}}
+  {{raw "list/views-count-column" topic=topic}}
+  
+  <td class="num activity last">
+    <a href="{{topic.lastPostUrl}}">
+      {{format-date topic.bumpedAt format="tiny"}}
+    </a>
+  </td>
+</tr>
