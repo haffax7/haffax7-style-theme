@@ -1,37 +1,35 @@
 <tr data-topic-id="{{topic.id}}" class="topic-list-item {{topic.featured_link_category}} {{if topic.has_excerpt 'has-excerpt'}} {{if topic.unseen 'unseen-topic'}}">
-  
-  {{#if bulkSelectEnabled}}
-    <td class="bulk-select"><input type="checkbox" class="bulk-select"></td>
-  {{/if}}
 
-  {{!-- 1. 아바타 열 --}}
-  <td class="topic-list-data posters">
-    <div class="topic-poster-avatar">
-      <a href="{{topic.lastPostUrl}}" data-user-card="{{topic.last_poster_username}}">
-        {{avatar topic.lastPosterUser imageSize="40"}}
-      </a>
-    </div>
+  {{!-- 1. 아바타 열 (왼쪽 고정) --}}
+  <td class="custom-poster-avatar">
+    <a href="{{topic.lastPostUrl}}" data-user-card="{{topic.last_poster_username}}">
+      {{avatar topic.lastPosterUser imageSize="40"}}
+    </a>
   </td>
 
-  {{!-- 2. 제목 및 메타 정보 (카테고리 + 시간) 열 --}}
-  <td class="topic-list-data main-link">
-    <div class="topic-title-contents">
-      <div class="topic-title-link">
+  {{!-- 2. 제목 및 정보 열 (가운데) --}}
+  <td class="main-link clearfix">
+    <div class="topic-content-group">
+      {{!-- 상단: 제목 --}}
+      <div class="topic-title-row">
         {{raw "list/topic-list-title" topic=topic}}
       </div>
-      <div class="topic-meta-data">
+      
+      {{!-- 하단: 카테고리 + 시간 --}}
+      <div class="topic-meta-row">
         {{category-link topic.category}}
-        {{!-- 시간 데이터를 카테고리 바로 옆에 배치 --}}
-        <span class="topic-post-time">
+        
+        {{!-- 시간 정보 (카테고리 바로 뒤에 붙음) --}}
+        <span class="topic-time-label">
           <a href="{{topic.lastPostUrl}}">{{format-date topic.bumpedAt format="tiny"}}</a>
         </span>
+        
         {{discourse-tags topic mode="list"}}
       </div>
     </div>
   </td>
 
-  {{!-- 3. 통계 열 (댓글, 조회수) --}}
-  <td class="topic-list-data num posts-count">{{raw "list/posts-count-column" topic=topic}}</td>
-  <td class="topic-list-data num views-count">{{raw "list/views-count-column" topic=topic}}</td>
-
+  {{!-- 3. 통계 열 (오른쪽) --}}
+  <td class="num posts-count">{{raw "list/posts-count-column" topic=topic}}</td>
+  <td class="num views-count">{{raw "list/views-count-column" topic=topic}}</td>
 </tr>
