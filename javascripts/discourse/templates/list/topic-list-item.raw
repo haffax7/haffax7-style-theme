@@ -1,35 +1,42 @@
-<tr data-topic-id="{{topic.id}}" class="topic-list-item {{topic.featured_link_category}} {{if topic.has_excerpt 'has-excerpt'}} {{if topic.unseen 'unseen-topic'}}">
-
-  {{!-- 1. 아바타 열 (왼쪽 고정) --}}
-  <td class="custom-poster-avatar">
-    <a href="{{topic.lastPostUrl}}" data-user-card="{{topic.last_poster_username}}">
-      {{avatar topic.lastPosterUser imageSize="40"}}
-    </a>
+{{!-- 이 템플릿은 리스트의 한 줄(Row)을 정의합니다 --}}
+<tr data-topic-id="{{topic.id}}" class="topic-list-item">
+  
+  {{!-- 1. 왼쪽: 아바타 전용 칸 --}}
+  <td class="haffax-avatar-cell">
+    <div class="poster-avatar">
+      <a href="{{topic.lastPostUrl}}" data-user-card="{{topic.last_poster_username}}">
+        {{avatar topic.lastPosterUser imageSize="40"}}
+      </a>
+    </div>
   </td>
 
-  {{!-- 2. 제목 및 정보 열 (가운데) --}}
+  {{!-- 2. 가운데: 제목 + 카테고리 + 시간 --}}
   <td class="main-link clearfix">
-    <div class="topic-content-group">
-      {{!-- 상단: 제목 --}}
-      <div class="topic-title-row">
+    <div class="link-middle-container">
+      {{!-- 제목 --}}
+      <div class="topic-title-area">
         {{raw "list/topic-list-title" topic=topic}}
       </div>
       
-      {{!-- 하단: 카테고리 + 시간 --}}
-      <div class="topic-meta-row">
+      {{!-- 메타 정보: 카테고리 | 시간 --}}
+      <div class="topic-meta-area">
         {{category-link topic.category}}
-        
-        {{!-- 시간 정보 (카테고리 바로 뒤에 붙음) --}}
-        <span class="topic-time-label">
-          <a href="{{topic.lastPostUrl}}">{{format-date topic.bumpedAt format="tiny"}}</a>
+        <span class="light-textish">
+          <a href="{{topic.lastPostUrl}}" class="topic-time-anchor">
+            {{format-date topic.bumpedAt format="tiny"}}
+          </a>
         </span>
-        
         {{discourse-tags topic mode="list"}}
       </div>
     </div>
   </td>
 
-  {{!-- 3. 통계 열 (오른쪽) --}}
-  <td class="num posts-count">{{raw "list/posts-count-column" topic=topic}}</td>
-  <td class="num views-count">{{raw "list/views-count-column" topic=topic}}</td>
+  {{!-- 3. 오른쪽: 통계 (댓글, 조회수) --}}
+  <td class="num posts-map post-count">
+    <span class="number" title="{{topic.replyCount}}">{{topic.replyCount}}</span>
+  </td>
+  <td class="num views-count">
+    <span class="number" title="{{topic.views}}">{{topic.views}}</span>
+  </td>
+
 </tr>
