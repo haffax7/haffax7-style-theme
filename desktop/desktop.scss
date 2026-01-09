@@ -1,124 +1,99 @@
-$theme-max-width: 1150px;
+// 1. 공통 너비 설정
+$theme-max-width: 1150px; 
 
-// --- 1. 글 목록 내 아바타 좌측 이동 (안정적인 Flex 방식) ---
-.topic-list {
-  .topic-list-item {
-    display: flex !important;
-    align-items: center;
-    padding: 12px 10px;
-
-    .posters {
-      order: -1 !important; // 제목보다 무조건 앞으로
-      flex: 0 0 45px !important;
-      margin-right: 15px !important;
-      display: flex !important;
-      justify-content: center;
-      
-      a:first-child img.avatar {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-      }
-      a:not(:first-child) { display: none; }
-    }
-
-    .main-link {
-      flex: 1;
-      min-width: 0;
-      padding: 0 !important;
-    }
-
-    .posts, .views, .num.age {
-      flex: 0 0 70px;
-      text-align: center;
-    }
-  }
-}
-
-// --- 2. 데스크탑 전용 레이아웃 (1100px 이상) ---
+// --- 데스크탑 전용 레이아웃 (1100px 이상) ---
 @media screen and (min-width: 1100px) {
   
-  // 전체 컨테이너 너비 제한
-  .wrap {
-    max-width: $theme-max-width !important;
-    margin: 0 auto !important;
-  }
-
-  // ★ 중요: 목록 관련 페이지에서만 3섹션 Flex 적용 ★
-  // .navigation-topics: 최신글 / .categories-list: 카테고리 / .navigation-category: 특정 카테고리 내부
-  .navigation-topics, .categories-list, .navigation-category, .tags-page {
-    
-    #main-outlet-wrapper {
-      display: flex !important; // 그리드 대신 플렉스 사용
-      gap: 20px;
-      align-items: start;
-    }
-
-    // [섹션 1] 좌측 사이드바 (Discourse 기본 사이드바)
-    .sidebar-wrapper {
-      flex: 0 0 220px !important;
-      position: sticky;
-      top: 80px;
-    }
-
-    // [섹션 2] 중앙 글 목록
-    #main-outlet {
-      flex: 1 1 600px !important;
-      min-width: 0;
-      margin: 0 !important;
+  .d-header {
+    display: flex !important;
+    justify-content: center !important;
+    .wrap {
+      width: $theme-max-width !important;
+      max-width: $theme-max-width !important;
+      margin: 0 auto !important;
+      display: flex !important;
+      justify-content: space-between !important;
       padding: 0 !important;
     }
-
-    // [섹션 3] 우측 사이드바 위젯
-    .before-main-outlet-connector {
-      flex: 0 0 300px !important;
-      display: block !important;
-      position: sticky;
-      top: 80px;
-      margin: 0 !important;
-    }
-
-    // 목록 페이지 푸터 위치 조정
-    .powered-by-discourse {
-      margin-top: 50px;
-      padding-left: 240px; // 사이드바 공간만큼 띄움
-    }
-  }
-
-  // ★ 중요: 상세 페이지 등 그 외의 페이지 레이아웃 초기화 ★
-  // 목록 페이지 전용 클래스가 없을 때는 모든 특수 레이아웃을 끕니다.
-  body:not(.navigation-topics):not(.categories-list):not(.navigation-category):not(.tags-page) {
-    #main-outlet-wrapper {
-      display: block !important; // 플렉스/그리드 완전 해제
-      width: $theme-max-width !important;
-      margin: 0 auto !important;
-    }
-
-    #main-outlet {
+    .contents {
+      display: flex !important;
       width: 100% !important;
-      max-width: 850px !important; // 본문 가독성 너비 확보
-      margin: 0 auto !important;
-      padding-top: 20px !important;
+      justify-content: space-between !important;
     }
+  }
 
-    // 상세 페이지에서는 우측 위젯 영역이 나타나지 않도록 차단
-    .before-main-outlet-connector, .haffax7-right-sidebar-target {
-      display: none !important;
-    }
+  #main-outlet-wrapper {
+    display: grid !important;
+    grid-template-columns: 220px 600px 300px !important;
+    grid-template-areas: 
+      "sidebar main-list right-side"
+      ". custom-footer ." !important; 
+    gap: 0 15px !important;
+    width: $theme-max-width !important;
+    max-width: $theme-max-width !important;
+    margin: 0 auto !important;
+    padding: 20px 0 !important;
+    align-items: start !important;
+  }
 
-    // 상세 페이지 푸터는 다시 중앙 하단으로
-    .powered-by-discourse {
-      display: block !important;
-      text-align: center;
-      margin-top: 60px !important;
-      padding-left: 0 !important;
-    }
+  .sidebar-wrapper {
+    grid-area: sidebar !important;
+    position: sticky !important;
+    top: 80px !important;
+    height: calc(100vh - 100px) !important;
+    overflow-y: hidden !important;
+    &:hover { overflow-y: auto !important; }
+    .sidebar-sections { padding-top: 0 !important; }
+  }
+
+  #main-outlet {
+    grid-area: main-list !important;
+    width: 600px !important;
+    padding-top: 0 !important;
+    .list-controls { margin-top: 0 !important; }
+  }
+
+  .before-main-outlet-connector {
+    grid-area: right-side !important;
+    margin-top: 0 !important;
+    display: block !important;
+  }
+
+  .haffax7-right-sidebar-target {
+    position: sticky !important;
+    top: 80px !important;
+    display: block !important; // 데스크탑에선 표시
+  }
+
+  .powered-by-discourse {
+    grid-area: custom-footer !important;
+    display: flex !important;
+    justify-content: flex-start !important;
+    margin: 40px 0 20px 0 !important;
   }
 }
 
-// 3. 공통 푸터 초기화 (그리드 속성 찌꺼기 제거)
-.powered-by-discourse {
-  grid-area: unset !important;
-  float: none !important;
-  clear: both !important;
+// --- 모바일 및 태블릿 대응 (1100px 미만) ---
+@media screen and (max-width: 1099px) {
+  // 모바일에서 노출되는 우측 사이드바 찌꺼기 완벽 제거
+  .haffax7-right-sidebar-target,
+  .custom-right-sidebar,
+  .recent-comments-widget {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+  }
+
+  #main-outlet-wrapper {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  #main-outlet {
+    width: 100% !important;
+  }
 }
+
+body { background-color: #ffffff !important; }
