@@ -2,7 +2,7 @@
 $theme-max-width: 1150px; 
 
 @media screen and (min-width: 1100px) {
-  // 2. [고정] 헤더: 모든 페이지 정중앙 & 양끝 정렬 강제
+  // 2. 헤더: 모든 페이지 정중앙 & 양끝 정렬 유지
   .d-header {
     display: flex !important;
     justify-content: center !important;
@@ -28,15 +28,12 @@ $theme-max-width: 1150px;
     width: $theme-max-width !important;
     max-width: $theme-max-width !important;
     margin: 0 auto !important;
-    padding: 20px 0 !important;
-    align-items: start !important;
+    padding: 20px 0 !important; // 상단 전체 여백
+    align-items: start !important; // 모든 섹션 상단 정렬 기준
     gap: 0 15px !important;
   }
 
-  // 4. [수정] 우측 섹션이 나타나야 하는 페이지들 (글 목록 관련 모든 클래스 추가)
-  // .navigation-topics: 최신/새글/인기 목록
-  // .categories-list: 카테고리 메인 목록
-  // .tags-page: 태그 목록
+  // 4. 우측 섹션이 나타나야 하는 페이지들
   .navigation-topics, .categories-list, .tags-page {
     #main-outlet-wrapper {
       grid-template-columns: 220px 600px 300px !important;
@@ -48,16 +45,24 @@ $theme-max-width: 1150px;
     #main-outlet { 
       grid-area: main-list !important; 
       width: 600px !important; 
+      // [교정] 중앙 섹션 상단 여백 제거 (사이드바와 높이 맞춤)
+      padding-top: 0 !important; 
+      margin-top: 0 !important; 
+
+      .list-controls {
+        margin-top: 0 !important; // 필터 버튼 상단 여백 제거
+      }
     }
 
     .before-main-outlet-connector,
     .haffax7-right-sidebar-target { 
       display: block !important; 
       grid-area: right-side !important; 
+      margin-top: 0 !important; // 우측 위젯 상단 여백 제거
     }
   }
 
-  // 5. 그 외 페이지 (글 본문 .topic-post, 관리자 .admin-contents 등) 2단 적용
+  // 5. 그 외 페이지 (2단 적용)
   body:not(.navigation-topics):not(.categories-list):not(.tags-page) {
     #main-outlet-wrapper {
       grid-template-columns: 220px 1fr !important;
@@ -65,19 +70,11 @@ $theme-max-width: 1150px;
         "sidebar main-list"
         ". custom-footer" !important;
     }
-
-    #main-outlet { 
-      grid-area: main-list !important; 
-      width: 100% !important; 
-    }
-
-    .before-main-outlet-connector, 
-    .haffax7-right-sidebar-target { 
-      display: none !important; 
-    }
+    #main-outlet { grid-area: main-list !important; width: 100% !important; }
+    .before-main-outlet-connector, .haffax7-right-sidebar-target { display: none !important; }
   }
 
-  // 6. 공통 요소 (사이드바 고정 및 푸터 정렬)
+  // 6. 공통 요소 (사이드바 및 푸터)
   .sidebar-wrapper {
     grid-area: sidebar !important;
     position: sticky !important;
@@ -85,7 +82,11 @@ $theme-max-width: 1150px;
     height: calc(100vh - 100px) !important;
     overflow-y: hidden !important;
     &:hover { overflow-y: auto !important; }
-    .sidebar-sections { padding-top: 0 !important; }
+    
+    // [교정] 좌측 사이드바 상단 여백 제거
+    .sidebar-sections {
+      padding-top: 0 !important;
+    }
   }
 
   .powered-by-discourse {
