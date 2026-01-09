@@ -1,75 +1,66 @@
-// 데스크탑 글 목록 3섹션 순서 재배치
+/* 1. 전체 레이아웃: 3섹션 구조 유지 */
+#main-outlet-container {
+  display: grid;
+  grid-template-columns: 220px 1fr 300px; /* 좌측(내비) - 중앙(목록) - 우측(위젯) */
+  gap: 20px;
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+/* 2. 중앙 글 목록 내의 아바타 위치 변경 */
 .topic-list {
   .topic-list-item {
     display: flex !important;
     align-items: center;
-    padding: 12px 0;
+    padding: 15px 10px;
 
-    // [섹션 1] 아바타 (기존 2번 섹션을 1번으로)
+    /* [중앙 섹션 내부의 1번] 아바타를 맨 앞으로 */
     .posters {
-      order: 1; 
-      width: 50px;
-      min-width: 50px;
+      order: 1;
+      flex: 0 0 45px;
       margin-right: 15px;
       display: flex;
       justify-content: center;
 
-      // 첫 번째 아바타만 노출 (대표 작성자)
-      a:first-child {
-        img.avatar {
-          width: 38px;
-          height: 38px;
-          border-radius: 50%;
-        }
+      a:first-child img.avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
       }
-      // 나머지 참여자 아바타 숨김 (깔끔한 왼쪽 배치를 위해)
-      a:not(:first-child) {
-        display: none;
-      }
+      /* 다른 참여자 숨김 */
+      a:not(:first-child) { display: none; }
     }
 
-    // [섹션 2] 제목 및 카테고리 (기존 1번 섹션을 2번으로)
+    /* [중앙 섹션 내부의 2번] 제목과 카테고리 */
     .main-link {
       order: 2;
       flex: 1;
-      min-width: 0;
       padding: 0 !important;
       border: none !important;
-
-      .link-bottom-line {
-        margin-top: 4px;
-      }
     }
 
-    // [섹션 3] 통계 및 날짜 (기존 3번 섹션 유지)
-    .posts, 
-    .views, 
-    .num.age {
+    /* [중앙 섹션 내부의 3번] 통계(댓글/조회/날짜) */
+    .posts, .views, .num.age {
       order: 3;
-      width: 75px;
+      width: 65px;
       text-align: center;
       border: none !important;
-      font-size: var(--font-down-1);
-      color: var(--primary-medium);
     }
   }
 
-  // 헤더 부분도 데이터 열과 맞게 순서 조정
-  .topic-list-header {
-    tr {
-      display: flex;
-      border-bottom: 2px solid var(--primary-low);
-      
-      th.default { order: 2; flex: 1; } // 제목 헤더
-      th.posters { order: 1; width: 50px; margin-right: 15px; } // 아바타 헤더
-      th.posts { order: 3; width: 75px; }
-      th.views { order: 3; width: 75px; }
-      th.age { order: 3; width: 75px; }
-    }
+  /* 테이블 헤더 정렬 */
+  .topic-list-header tr {
+    display: flex;
+    .posters { order: 1; flex: 0 0 45px; margin-right: 15px; }
+    .default { order: 2; flex: 1; }
+    .posts, .views, .age { order: 3; width: 65px; }
   }
 }
 
-// 불필요한 테이블 요소 제거
-.topic-list-item td, .topic-list-header th {
-  display: block;
+/* 3. 우측 섹션 (Recent Comments 등) 스타일 유지 */
+/* 기존에 설정하셨던 우측 사이드바 클래스가 있다면 여기에 유지됩니다. */
+.custom-right-sidebar {
+  grid-column: 3;
+  /* 사이드바 고정 등 필요한 스타일 추가 */
 }
