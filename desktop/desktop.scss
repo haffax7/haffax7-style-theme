@@ -1,18 +1,17 @@
-$theme-max-width: 1150px; 
+$theme-max-width: 1150px;
 
-// --- 데스크탑 전용 레이아웃 (1100px 이상) ---
 @media screen and (min-width: 1100px) {
-  
-  // 1. 헤더 공통 설정
+  // 1. 헤더 공통
   .d-header .wrap {
     width: $theme-max-width !important;
     max-width: $theme-max-width !important;
     margin: 0 auto !important;
   }
 
-  // 2. [선택자 분리] 글 목록 관련 페이지에서만 3단 그리드 활성화
-  // .navigation-topics: 최신글, 새글 등 / .categories-list: 카테고리 목록
-  .navigation-topics, .categories-list {
+  // 2. 글 목록 페이지에서만 3단 그리드 적용 (클래스 기반보다 더 확실한 방식)
+  // 최신글(Latest), 카테고리(Categories) 목록 등에서만 작동
+  .navigation-topics, .categories-list, .tags-page, .navigation-category {
+    
     #main-outlet-wrapper {
       display: grid !important;
       grid-template-columns: 220px 600px 300px !important;
@@ -23,7 +22,6 @@ $theme-max-width: 1150px;
       width: $theme-max-width !important;
       max-width: $theme-max-width !important;
       margin: 0 auto !important;
-      align-items: start !important;
     }
 
     #main-outlet {
@@ -38,11 +36,11 @@ $theme-max-width: 1150px;
 
     .powered-by-discourse {
       grid-area: custom-footer !important;
-      display: flex !important;
-      justify-content: flex-start !important;
+      display: block !important;
+      margin-top: 30px !important;
     }
 
-    // [글 목록 내부] 아바타 왼쪽 이동 로직
+    // 목록 내 아바타 왼쪽 이동
     .topic-list-item {
       display: flex !important;
       align-items: center;
@@ -52,39 +50,43 @@ $theme-max-width: 1150px;
         a:first-child img.avatar { width: 35px; height: 35px; border-radius: 50%; }
         a:not(:first-child) { display: none; }
       }
-      .main-link { order: 2; flex: 1; padding: 0 !important; border: none !important; }
-      .posts, .views, .num.age { order: 3; width: 60px; text-align: center; border: none !important; }
+      .main-link { order: 2; flex: 1; padding: 0 !important; }
+      .posts, .views, .num.age { order: 3; width: 60px; text-align: center; }
     }
   }
 
-  // 3. [그리드 해제] 글 보기 페이지 등 기타 페이지
-  // .archetype-regular(일반글), .archetype-private_message(메시지) 등
-  body:not(.navigation-topics):not(.categories-list) {
+  // 3. 글 보기(Topic) 및 기타 페이지 레이아웃 강제 초기화
+  // 목록 페이지 클래스가 없는 모든 경우에 그리드 파괴
+  body:not(.navigation-topics):not(.categories-list):not(.tags-page):not(.navigation-category) {
     #main-outlet-wrapper {
-      display: flex !important; // 그리드 강제 해제 및 플렉스 전환
-      flex-direction: row;
+      display: block !important; // 그리드 해제
       width: $theme-max-width !important;
+      max-width: $theme-max-width !important;
       margin: 0 auto !important;
-      grid-template-areas: none !important; // 그리드 영역 정의 삭제
     }
 
     #main-outlet {
-      flex: 1;
-      width: auto !important;
-      max-width: 880px; // 본문 영역을 적절히 확보
-      margin-left: 20px;
+      width: 100% !important;
+      max-width: 900px !important; // 본문 가독성 너비
+      margin: 0 auto !important;
+      float: none !important;
     }
 
-    // 다른 페이지에서는 우측 사이드바와 푸터 그리드 할당 해제
+    // 상세 페이지에서 불필요한 영역 숨김 및 그리드 속성 제거
     .before-main-outlet-connector, 
-    .haffax7-right-sidebar-target,
+    .haffax7-right-sidebar-target {
+      display: none !important;
+    }
+
     .powered-by-discourse {
       display: block !important;
-      grid-area: auto !important; // 그리드 위치 고정 해제
+      grid-area: unset !important; // 그리드 위치 강제 해제
+      margin: 50px auto !important;
+      text-align: center;
     }
   }
 
-  // 좌측 사이드바 고정 (공통)
+  // 사이드바 공통 설정
   .sidebar-wrapper {
     grid-area: sidebar !important;
     position: sticky !important;
