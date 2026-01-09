@@ -6,20 +6,22 @@
     </td>
   {{/if}}
 
-  {{!-- 아바타와 제목을 하나의 td에 통합 배치 --}}
-  <td class="main-link clearfix" colspan="1">
-    <div class="topic-item-content">
+  {{!-- 아바타와 제목을 하나의 열(td)로 합침 --}}
+  <td class="main-link clearfix">
+    <div class="topic-item-wrapper">
+      {{!-- 아바타 영역 --}}
       <div class="topic-poster-avatar">
         <a href="{{topic.lastPostUrl}}" data-user-card="{{topic.last_poster_username}}">
-          {{avatar topic.lastPosterUser imageSize="32"}}
+          {{avatar topic.lastPosterUser imageSize="40"}}
         </a>
       </div>
       
-      <div class="topic-details">
+      {{!-- 제목 및 메타 정보 영역 --}}
+      <div class="topic-content-details">
         <div class="topic-title">
           {{raw "list/topic-list-title" topic=topic}}
         </div>
-        <div class="topic-meta-data">
+        <div class="topic-meta-info">
           {{category-link topic.category}}
           {{discourse-tags topic mode="list"}}
         </div>
@@ -27,6 +29,7 @@
     </div>
   </td>
 
+  {{!-- 댓글수, 조회수, 활동일 열 --}}
   {{raw "list/posts-count-column" topic=topic}}
   {{raw "list/views-count-column" topic=topic}}
   
