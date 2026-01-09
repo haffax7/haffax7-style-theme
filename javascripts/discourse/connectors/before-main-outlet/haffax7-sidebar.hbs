@@ -1,16 +1,12 @@
 {{#unless this.site.mobileView}}
-<div class="haffax7-right-sidebar-target">
-  <aside class="custom-right-sidebar">
-    <section class="recent-comments-widget">
-      <h3 class="widget-title">RECENT COMMENTS</h3>
-      <div id="custom-recent-comments">
-        <ul class="recent-comments-list">
-            <li>데스크탑 전용 레이아웃 활성화</li>
-            <li>모바일 렌더링 방지 로직 적용</li>
-            <li>실시간 데이터 로드 대기 중...</li>
-        </ul>
-      </div>
-    </section>
-  </aside>
-</div>
+  {{#if (includes this.currentRouteName "discovery")}}
+    <aside class="haffax7-right-sidebar-target custom-right-sidebar">
+      <h3>RECENT COMMENTS</h3>
+      <ul>
+        <li>데스크탑 전용 레이아웃 활성화</li>
+        <li>글 리스트 페이지에서만 출력</li>
+        <li>실시간 데이터 로드 대기 중...</li>
+      </ul>
+    </aside>
+  {{/if}}
 {{/unless}}
