@@ -1,41 +1,38 @@
 <tr data-topic-id="{{topic.id}}" class="topic-list-item {{topic.featured_link_category}} {{if topic.has_excerpt 'has-excerpt'}} {{if topic.unseen 'unseen-topic'}}">
   
   {{#if bulkSelectEnabled}}
-    <td class="bulk-select">
-      <input type="checkbox" class="bulk-select">
-    </td>
+    <td class="bulk-select"><input type="checkbox" class="bulk-select"></td>
   {{/if}}
 
-  {{!-- 아바타와 제목을 하나의 열(td)로 합침 --}}
+  {{!-- [통합 열] 아바타 + 제목 + (카테고리 & 시간) --}}
   <td class="main-link clearfix">
-    <div class="topic-item-wrapper">
-      {{!-- 아바타 영역 --}}
-      <div class="topic-poster-avatar">
+    <div class="topic-item-main-container">
+      {{!-- 1. 아바타 --}}
+      <div class="topic-poster-left">
         <a href="{{topic.lastPostUrl}}" data-user-card="{{topic.last_poster_username}}">
           {{avatar topic.lastPosterUser imageSize="40"}}
         </a>
       </div>
       
-      {{!-- 제목 및 메타 정보 영역 --}}
-      <div class="topic-content-details">
-        <div class="topic-title">
+      {{!-- 2. 제목 및 하단 정보 --}}
+      <div class="topic-info-right">
+        <div class="topic-title-row">
           {{raw "list/topic-list-title" topic=topic}}
         </div>
-        <div class="topic-meta-info">
+        
+        <div class="topic-meta-row">
           {{category-link topic.category}}
+          {{!-- 시간 데이터를 카테고리 바로 뒤로 배치 --}}
+          <span class="topic-time-inline">
+            <a href="{{topic.lastPostUrl}}">{{format-date topic.bumpedAt format="tiny"}}</a>
+          </span>
           {{discourse-tags topic mode="list"}}
         </div>
       </div>
     </div>
   </td>
 
-  {{!-- 댓글수, 조회수, 활동일 열 --}}
-  {{raw "list/posts-count-column" topic=topic}}
-  {{raw "list/views-count-column" topic=topic}}
-  
-  <td class="num activity last">
-    <a href="{{topic.lastPostUrl}}">
-      {{format-date topic.bumpedAt format="tiny"}}
-    </a>
-  </td>
+  {{!-- 통계 데이터 (댓글, 조회수) --}}
+  <td class="num posts-count">{{raw "list/posts-count-column" topic=topic}}</td>
+  <td class="num views-count">{{raw "list/views-count-column" topic=topic}}</td>
 </tr>
