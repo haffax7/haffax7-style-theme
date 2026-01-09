@@ -1,7 +1,7 @@
 {{!-- javascripts/discourse/templates/list/topic-list-item.hbr --}}
 <tr data-topic-id="{{topic.id}}" class="topic-list-item {{topic.featured_link_category}} {{if topic.has_excerpt 'has-excerpt'}} {{if topic.unseen 'unseen-topic'}}">
 
-  {{!-- 1. 아바타 (왼쪽) --}}
+  {{!-- 1. 아바타 (왼쪽 고정) --}}
   <td class="haffax-avatar-cell">
     <div class="poster-avatar">
       <a href="{{topic.lastPostUrl}}" data-user-card="{{topic.last_poster_username}}">
@@ -10,25 +10,22 @@
     </div>
   </td>
 
-  {{!-- 2. 제목 + 카테고리 + 시간 (가운데) --}}
+  {{!-- 2. 제목 + 메타 정보 (가운데) --}}
   <td class="main-link clearfix">
     <div class="link-middle-wrapper">
-      {{!-- 제목 줄 --}}
+      {{!-- 제목 --}}
       <div class="topic-title-row">
         {{raw "list/topic-list-title" topic=topic}}
       </div>
       
-      {{!-- 정보 줄: 카테고리 | 시간 --}}
+      {{!-- 메타: 카테고리 + 시간 --}}
       <div class="topic-meta-row">
         {{category-link topic.category}}
-        
-        {{!-- 시간: 카테고리 바로 옆에 붙이기 --}}
         <span class="topic-time-custom">
           <a href="{{topic.lastPostUrl}}">
             {{format-date topic.bumpedAt format="tiny"}}
           </a>
         </span>
-        
         {{discourse-tags topic mode="list"}}
       </div>
     </div>
@@ -43,5 +40,4 @@
   <td class="num views-count">
     <span class="number">{{topic.views}}</span>
   </td>
-
 </tr>
