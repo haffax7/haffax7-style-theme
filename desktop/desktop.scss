@@ -1,83 +1,96 @@
+// 1. 공통 너비 및 헤더 정렬 강제
 $theme-max-width: 1150px; 
 
 @media screen and (min-width: 1100px) {
-  // 1. 헤더 정중앙 정렬 복구
   .d-header {
-    display: flex !important; justify-content: center !important;
-    .wrap { width: $theme-max-width !important; max-width: $theme-max-width !important; margin: 0 auto !important; display: flex !important; justify-content: space-between !important; padding: 0 !important; }
-    .contents { display: flex !important; width: 100% !important; justify-content: space-between !important; }
+    display: flex !important;
+    justify-content: center !important;
+    .wrap { width: $theme-max-width !important; max-width: $theme-max-width !important; margin: 0 auto !important; display: flex !important; justify-content: space-between !important; }
   }
 
-  // 2. 3단 그리드 시스템 안정화
+  // 2. 3단 그리드 완전 고정 (오른쪽 섹션 유실 방지)
   .navigation-topics, .categories-list, .tags-page {
     #main-outlet-wrapper {
       display: grid !important;
       grid-template-columns: 220px 600px 300px !important;
-      grid-template-areas: "sidebar main-list right-side" ". custom-footer ." !important;
+      grid-template-areas: "sidebar main-list right-side" ". custom-footer ." !important; 
+      gap: 0 15px !important;
       width: $theme-max-width !important;
       margin: 0 auto !important;
-      gap: 0 15px !important;
-      align-items: start !important;
     }
-
     #main-outlet { grid-area: main-list !important; width: 600px !important; padding-top: 0 !important; }
-    .before-main-outlet-connector { display: block !important; grid-area: right-side !important; }
+    .before-main-outlet-connector, .haffax7-right-sidebar-target { display: block !important; grid-area: right-side !important; }
   }
 
-  // 3. 글 리스트 디자인 (네이티브 앱 스타일)
-  .topic-list-item {
-    border-bottom: 1px solid #f0f0f0 !important;
+  // 3. [핵심] 글 리스트 구조 재배치
+  .topic-list-body {
+    .topic-list-item {
+      display: table-row !important; // 테이블 구조 유지로 레이아웃 안정화
 
-    .topic-item-main-container {
-      display: flex !important; align-items: center !important; gap: 15px !important; padding: 10px 0 !important;
-    }
+      // [A] 아바타(posters)를 맨 왼쪽으로 시각적 이동
+      .posters {
+        float: left !important;
+        width: 50px !important;
+        padding: 15px 0 15px 10px !important;
+        border: none !important;
+        
+        a:not(:first-child) { display: none !important; } // 메인 작성자만
+        img { width: 36px !important; height: 36px !important; border-radius: 50% !important; }
+      }
 
-    .topic-poster-left img { border-radius: 50% !important; width: 38px !important; height: 38px !important; }
+      // [B] 제목 및 메타정보 (카테고리 + 시간)
+      .main-link {
+        display: table-cell !important;
+        padding: 12px 10px !important;
+        vertical-align: top !important;
 
-    .topic-info-right {
-      display: flex !important; flex-direction: column !important; gap: 4px !important;
-      
-      .topic-title { font-size: 1.05rem !important; font-weight: 500 !important; }
-      
-      .topic-meta-row {
-        display: flex !important; align-items: center !important; gap: 8px !important;
+        .link-bottom-line {
+          display: inline-flex !important;
+          align-items: center !important;
+          flex-wrap: wrap !important;
+          
+          // 카테고리 뒤에 시간(activity) 정보를 강제로 삽입하는 시각적 효과
+          &::after {
+            content: attr(data-time-ago) !important; // 시간 데이터가 있을 경우 사용
+            margin-left: 10px !important;
+            color: #919191 !important;
+            font-size: 0.82rem !important;
+          }
+        }
+      }
+
+      // [C] 기존 우측 끝 시간을 숨기지 않고 제목 아래로 흐르게 조정
+      .num.activity {
+        display: inline-block !important;
+        float: left !important;
+        width: auto !important;
+        padding: 0 !important;
+        margin-top: -22px !important; // 제목 메타라인 위치로 강제 올림
+        margin-left: 80px !important; // 카테고리 뒤쪽으로 배치
+        border: none !important;
         font-size: 0.82rem !important;
         
-        .topic-time-inline a { color: #919191 !important; font-weight: normal !important; }
-        .badge-wrapper.bullet span.badge-category { color: #666 !important; }
+        a { color: #919191 !important; font-weight: normal !important; }
+      }
+
+      // [D] 댓글/조회수 통계
+      .posts, .views {
+        display: table-cell !important;
+        width: 60px !important;
+        text-align: center !important;
+        vertical-align: middle !important;
+        border: none !important;
+        color: #b3b3b3 !important;
       }
     }
-
-    // 통계 열 정렬
-    .num { text-align: center !important; color: #b3b3b3 !important; font-size: 0.9rem !important; border: none !important; }
-    
-    // 기존에 있던 개별 시간 열(td)이 템플릿 수정으로 남을 경우 대비
-    .activity { display: none !important; }
   }
 
-  // 테이블 헤더 숨기기
+  // 테이블 헤더 정리
   .topic-list-header { display: none !important; }
 
-  // 4. 사이드바 고정
-  .sidebar-wrapper {
-    grid-area: sidebar !important; position: sticky !important; top: 80px !important;
-    .sidebar-sections { padding-top: 0 !important; }
-  }
-
-  // 5. 푸터: 본문 왼쪽 정렬 복구
-  .powered-by-discourse {
-    grid-area: custom-footer !important;
-    display: flex !important; justify-content: flex-start !important;
-    margin: 40px 0 20px 0 !important;
-    border: none !important;
-    padding: 0 !important;
-  }
-}
-
-// 모바일 예외 처리
-@media screen and (max-width: 1099px) {
-  .haffax7-right-sidebar-target { display: none !important; }
-  #main-outlet-wrapper { display: block !important; width: 100% !important; }
+  // 4. 사이드바 및 푸터 설정 유지
+  .sidebar-wrapper { grid-area: sidebar !important; position: sticky !important; top: 80px !important; }
+  .powered-by-discourse { grid-area: custom-footer !important; display: flex !important; justify-content: flex-start !important; margin: 40px 0 20px 0 !important; }
 }
 
 body { background-color: #ffffff !important; }
