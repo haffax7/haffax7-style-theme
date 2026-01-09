@@ -1,14 +1,17 @@
 $theme-max-width: 1150px;
 
-// --- 공통: 글 목록 내 아바타 좌측 이동 (안정적인 방식) ---
+// --- 1. [공통] 글 목록 내부 아바타 위치 변경 ---
+// 이 스타일은 중앙 목록 섹션 안에서만 작동하므로 안전합니다.
 .topic-list {
   .topic-list-item {
-    // 1. 아바타 열을 맨 앞으로 보냄
+    display: flex !important;
+    align-items: center;
+    padding: 10px 5px;
+
     .posters {
-      order: -1 !important; 
-      width: 45px !important;
+      order: -1 !important; // 제목보다 앞으로 보냄
+      flex: 0 0 45px !important;
       margin-right: 15px !important;
-      float: none !important;
       display: flex !important;
       justify-content: center;
       
@@ -17,35 +20,43 @@ $theme-max-width: 1150px;
         height: 36px;
         border-radius: 50%;
       }
-      a:not(:first-child) { display: none; }
+      a:not(:first-child) { display: none; } // 대표자만 표시
     }
 
-    // 2. 제목 열 스타일 조정
     .main-link {
       flex: 1;
-      border: none !important;
+      min-width: 0;
+      padding: 0 !important;
+    }
+
+    .posts, .views, .num.age {
+      flex: 0 0 65px;
+      text-align: center;
     }
   }
 }
 
-// --- 데스크탑 전용 3섹션 레이아웃 (FKB Pro 구조 차용) ---
+// --- 2. [데스크탑 전용] 3섹션 구조 제어 (1100px 이상) ---
 @media screen and (min-width: 1100px) {
   
-  // 전체 컨테이너 너비 제한
-  .wrap {
+  // 헤더 너비 고정
+  .d-header .wrap {
     max-width: $theme-max-width !important;
+    margin: 0 auto !important;
   }
 
-  // 글 목록 페이지에서만 3섹션 구도 형성
-  .navigation-topics, .categories-list, .navigation-category {
+  // ★ 핵심: 목록 관련 페이지(navigation)에서만 Flex 레이아웃 적용
+  .navigation-topics, .categories-list, .navigation-category, .tags-page {
     
     #main-outlet-wrapper {
       display: flex !important;
       gap: 20px;
+      max-width: $theme-max-width !important;
+      margin: 0 auto !important;
       align-items: start;
     }
 
-    // [섹션 1] 좌측 사이드바 (Discourse 기본 사이드바 활용)
+    // [섹션 1] 좌측 사이드바
     .sidebar-wrapper {
       flex: 0 0 220px !important;
       position: sticky;
@@ -54,43 +65,51 @@ $theme-max-width: 1150px;
 
     // [섹션 2] 중앙 글 목록
     #main-outlet {
-      flex: 0 0 580px !important; // 너비 고정하여 안정성 확보
+      flex: 1 1 600px !important; // 남는 공간을 쓰되 600px 기준
       min-width: 0;
-      margin: 0 !important;
     }
 
-    // [섹션 3] 우측 위젯 영역
+    // [섹션 3] 우측 사이드바 위젯
     .before-main-outlet-connector {
-      flex: 0 0 280px !important;
+      flex: 0 0 300px !important;
       display: block !important;
       position: sticky;
       top: 80px;
     }
+    
+    // 목록 페이지에서의 푸터 처리
+    .powered-by-discourse {
+      width: 100%;
+      margin-left: 240px; // 사이드바 너비만큼 밀어서 중앙 목록 아래 위치
+    }
   }
 
-  // --- 글 보기 상세 페이지 초기화 (FKB Pro의 안정성 핵심) ---
-  .archetype-regular {
+  // ★ 핵심: 글 상세 페이지(.archetype-regular) 레이아웃 복구 ★
+  // 목록 페이지 전용 클래스가 없을 때 그리드/플렉스 설정을 초기화합니다.
+  body:not(.navigation-topics):not(.categories-list):not(.navigation-category):not(.tags-page) {
     #main-outlet-wrapper {
-      display: flex !important; // 그리드 대신 flex 사용
-      justify-content: center;
-    }
-
-    #main-outlet {
-      flex: 1 !important;
-      max-width: 850px !important; // 읽기 편한 너비
+      display: block !important; // Discourse 기본값으로 복구
+      width: $theme-max-width !important;
       margin: 0 auto !important;
     }
 
-    // 상세 페이지에서 우측 섹션 제거
-    .before-main-outlet-connector {
+    #main-outlet {
+      width: 100% !important;
+      max-width: 850px !important; // 본문 가독성 너비
+      margin: 0 auto !important;
+      padding-top: 20px !important;
+    }
+
+    // 상세 페이지에서는 우측 위젯 영역을 완전히 제거
+    .before-main-outlet-connector, .haffax7-right-sidebar-target {
       display: none !important;
     }
-    
-    // 푸터가 우측으로 튀는 현상 방지
+
+    // 상세 페이지 푸터 정상화
     .powered-by-discourse {
-      width: 100% !important;
+      display: block !important;
       text-align: center;
-      margin-top: 50px;
+      margin-top: 40px !important;
     }
   }
 }
@@ -98,6 +117,5 @@ $theme-max-width: 1150px;
 // 푸터 위치 공통 초기화
 .powered-by-discourse {
   clear: both;
-  display: block;
   padding: 20px 0;
 }
