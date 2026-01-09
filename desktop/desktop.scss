@@ -1,42 +1,61 @@
-@media screen and (min-width: 1100px) {
-  // 기존 레이아웃 코드 유지...
+$theme-max-width: 1150px; 
 
+@media screen and (min-width: 1100px) {
+  // 1. 헤더 정렬 유지
+  .d-header {
+    display: flex !important;
+    justify-content: center !important;
+    .wrap { width: $theme-max-width !important; max-width: $theme-max-width !important; margin: 0 auto !important; display: flex !important; justify-content: space-between !important; }
+  }
+
+  // 2. 3단 그리드 복구 및 고정
+  .navigation-topics, .categories-list, .tags-page {
+    #main-outlet-wrapper {
+      display: grid !important;
+      grid-template-columns: 220px 600px 300px !important;
+      grid-template-areas: "sidebar main-list right-side" ". custom-footer ." !important;
+      width: $theme-max-width !important;
+      margin: 0 auto !important;
+      gap: 0 15px !important;
+    }
+    #main-outlet { grid-area: main-list !important; width: 600px !important; padding-top: 0 !important; margin-top: 0 !important; }
+    .before-main-outlet-connector, .haffax7-right-sidebar-target { display: block !important; grid-area: right-side !important; }
+  }
+
+  // 3. 아바타 & 제목 디자인 정밀 조정
   .topic-list-item {
-    // 아바타와 텍스트 정렬을 위한 Flex 설정
-    .topic-item-content {
+    .topic-item-wrapper {
       display: flex !important;
       align-items: center !important;
-      gap: 15px !important; // 아바타와 제목 사이 간격
+      gap: 12px !important;
     }
 
     .topic-poster-avatar {
       flex-shrink: 0 !important;
-      img {
-        border-radius: 50% !important;
-        vertical-align: middle !important;
+      img { 
+        border-radius: 50% !important; 
+        width: 36px !important; 
+        height: 36px !important; 
+        display: block !important;
       }
     }
 
-    .topic-details {
-      display: flex !important;
-      flex-direction: column !important;
-      gap: 4px !important;
-      min-width: 0 !important; // 제목 길어질 때 깨짐 방지
-    }
-
-    .topic-title {
-      font-size: 1.1rem !important;
-      line-height: 1.4 !important;
-    }
-
-    // 기존 아바타 열(td)이 남아있을 경우 제거
-    .posters {
-      display: none !important;
-    }
+    // 기존의 오른쪽 아바타 열(posters)은 완전히 숨김
+    .posters { display: none !important; }
   }
 
-  // 테이블 헤더 간격 조정
-  .topic-list th.main-link {
-    padding-left: 50px !important; // 아바타 너비만큼 헤더 제목 밀기
+  // 4. 사이드바 고정 유지
+  .sidebar-wrapper {
+    grid-area: sidebar !important;
+    position: sticky !important; top: 80px !important;
+    .sidebar-sections { padding-top: 0 !important; }
   }
+}
+
+// 5. 푸터 정렬
+.powered-by-discourse { 
+  display: flex !important; 
+  justify-content: flex-start !important; 
+  margin-top: 40px !important; 
+  border-top: none !important; 
 }
